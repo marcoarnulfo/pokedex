@@ -4,8 +4,9 @@ import axios from 'axios'
 
 export const store = reactive({
     isFronte: true,
+    //error:'',
     count: 0,
-    pokemon: 'bulbasaur', // accetta solo lettere minuscole O numeri
+    pokemon: '1', // accetta solo lettere minuscole O numeri
     pokemonID: 1,
     myPokemons: [],
     getImg() {
@@ -19,11 +20,12 @@ export const store = reactive({
     callApi() {
         axios.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemon}`)
             .then(response => {
-
                 console.log(response.data.name); // stampa il nome del pokemon
                 console.log(response.data.id); // stampa l'id del pokemon
                 //console.log(response.data.types[0].type.name); // accedo al primo tipo. potrebbe essercene anche un secondo
                 this.myPokemons = response.data
+                this.pokemonID = this.myPokemons.id
+
                 //console.log(this.pokemon_type);
                 console.log(response.data.height) // stampa l'altezza
                 console.log(response.data.weight) // stampa il peso
@@ -47,6 +49,7 @@ export const store = reactive({
             })
             .catch(error => {
                 console.log(error);
+                this.myPokemons = []
             });
     },
 
@@ -56,24 +59,21 @@ export const store = reactive({
     // }
     nextPokemon() {
         if (typeof this.pokemon === 'string') {
-            this.pokemonID = this.myPokemons.id
             this.pokemonID++
             this.pokemon = this.pokemonID
             this.callApi()
-        } else{
-            this.pokemon++
+        } else {
+            this.pokemonID++
+            this.pokemon = this.pokemonID
             this.callApi()
         }
         //this.pokemon = this.pokemonID
     },
     prevPokemon() {
-        if (typeof this.pokemon === 'string') {
-            this.pokemonID = this.myPokemons.id
+        if (typeof this.pokemon === 'string' || this.pokemonID > 1) {
+            console.log('sono dentro IF type OFF &&');
             this.pokemonID--
             this.pokemon = this.pokemonID
-            this.callApi()
-        } else{
-            this.pokemon--
             this.callApi()
         }
     }

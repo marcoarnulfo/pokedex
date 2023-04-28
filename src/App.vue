@@ -2,6 +2,8 @@
 
 //import axios from 'axios';
 import { store } from './store.js'
+import SearchBar from './components/SearchBar.vue'
+
 
 export default {
   name: 'App',
@@ -10,6 +12,9 @@ export default {
       store
     }
   },
+  components:{
+    SearchBar,
+},
   mounted() {
     store.callApi()
   }
@@ -22,12 +27,13 @@ export default {
   <div class="text-center">
     <div class="bg_img">
       <div class="test">
+        <SearchBar/>
         <div v-if="store.myPokemons.length < 1">
           PROBLEMI PROBLEMI
-          <div class="buttons d-flex"> <!--Blocco dei bottoni next & prev pokemons-->
+          <div class="buttons d-flex gap-2"> <!--Blocco dei bottoni next & prev pokemons-->
             <button class="button-30" @click="store.prevPokemon()" role="button"><span
                 class="arrow">&#11207;</span></button>
-            <button class="button-30" @click="store.nextPokemon()" role="button"><span
+            <button class="button-30 " @click="store.nextPokemon()" role="button"><span
                 class="arrow">&#11208;</span></button>
           </div>
         </div>
@@ -35,7 +41,7 @@ export default {
           <div class="container_pokemon pt-4"> <!-- Immagine del pokemon-->
             <img class="pokemon" :src="store.getImg()" alt="123">
           </div>
-          <div class="buttons d-flex"> <!--Blocco dei bottoni next & prev pokemons-->
+          <div class="buttons d-flex gap-2"> <!--Blocco dei bottoni next & prev pokemons-->
             <button class="button-30" @click="store.prevPokemon()" role="button"><span
                 class="arrow">&#11207;</span></button>
             <button class="button-30" @click="store.nextPokemon()" role="button"><span
@@ -56,8 +62,6 @@ export default {
           </div>
         </div>
       </div>
-      
-
     </div>
     <!-- <img src="./assets/pokechicco.png" alt=""> -->
 
@@ -100,7 +104,7 @@ export default {
 .bg_img {
   position: relative;
   margin: auto;
-  background-image: url('./assets/newpoke.png');
+  background-image: url('./assets/newpokez.png');
   background-repeat: no-repeat;
   background-size: contain;
   height: 1000px;
@@ -120,10 +124,15 @@ export default {
 .button-30 {
   align-items: center;
   appearance: none;
-  background-color: #FCFCFD;
+  background-color: #f6f5f0;
+  //background-color: #FCFCFD;
   border-radius: 4px;
   border-width: 0;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  // box-shadow: inset 10px 10px 15px -10px #c3c3c3,
+  //           inset -10px -10px 15px -10px #ffffff;
+
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #c3c3c3 0 -3px 0 inset;
+  
   box-sizing: border-box;
   color: #36395A;
   cursor: pointer;
