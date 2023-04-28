@@ -1,2 +1,84 @@
 // Import all of Bootstrap's CSS
 @import "bootstrap/scss/bootstrap";
+
+// Variabili e classi tipi colore
+$grass: #9bcc50;
+#grass {
+    background-color: $grass;
+}
+$poison: #b97fc9;
+#poison{
+    background-color: $poison;
+}
+$fire: #fd7d24;
+#fire{
+    background-color: $fire;
+}
+$flying: linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%);
+#flying{
+    background: $flying;
+    //background-color: #3dc7ef;
+    //controllare
+}
+$water : #4592c4;
+#water{
+    background-color: $water;
+}
+$bug : #729f3f;
+#bug{
+    background-color: $bug;
+}
+$normal: #a4acaf;
+#normal{
+    background-color: $normal;
+}
+$electric: #eed535;
+#electric{
+    background-color: $electric;
+}
+$ground:linear-gradient(180deg, #f7de3f 50%, #ab9842 50%);
+#ground{
+    background: $ground;
+    //background-color: #f7de3f;
+    //controllare
+}
+$fairy: #fdb9e9;
+#fairy{
+    background-color: $fairy;
+}
+$fighting:#d56723;
+#fighting{
+    background-color: $fighting;
+}
+$psychic: #f366b9;
+#psychic{
+    background-color: $psychic;
+}
+$rock: #a38c21;
+#rock{
+    background-color: $rock;
+}
+$steel: #9eb7b8;
+#steel{
+    background-color: $steel;
+}
+$ice:#51c4e7;
+#ice{
+    background-color: $ice;
+}
+$ghost:#7b62a3;
+#ghost{
+    background-color: $ghost;
+}
+$dragon : linear-gradient(180deg, #53a4cf 50%, #f16e57 50%);
+#dragon{
+    background: $dragon;
+    //background-color:  #53a4cf;
+    //controllare
+}
+$dark :#707070;
+#dark{
+    background-color: $dark;
+}
+
+
