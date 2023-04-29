@@ -60,14 +60,14 @@ export default {
             </div>
             <div class="type_test rounded"> <!-- Blocco bianco-->
               <div v-if="store.myPokemons.types.length > 1" :id="store.myPokemons.types[1].type.name" class="type_test
-                d-flex justify-content-center align-items-center rounded"> <!-- Secondo tipo-->
+                  d-flex justify-content-center align-items-center rounded"> <!-- Secondo tipo-->
                 {{ store.myPokemons.types[1].type.name }}
               </div>
             </div>
           </div>
           <!--Bottone shiny-->
           <div class="shiny">
-            <button id="shiny_button" class="button-30"  @click="store.shinyButton()">
+            <button id="shiny_button" class="button-30" @click="store.shinyButton()">
               <img class="shiny_img" :class="store.shiny ? 'shiny_filter' : ''" src="./assets/shiny.png" alt="">
             </button>
           </div>
@@ -76,9 +76,20 @@ export default {
             <button id="switch_button" class="button-30" @click="store.spinButton()">
               <img class="switch_img" src="./assets/switch2.png" alt="">
             </button>
-            <button id="maleFemale" class="button-30" @click="store.changeGender()">
-              <img class="switch_img" :src="store.getImagePath(`${store.path}`)" alt=""> 
+            <!--Cambio gender-->
+            <button :id="store.isMale ? 'male' : (store.isMale === false ? 'female' : '') " class="button-30" @click="store.changeGender()">
+              <img class="switch_img" :src="store.getImagePath(`${store.path}`)" alt="">
             </button>
+          </div>
+          <!--Statistiche Pokemon-->
+          <div id="info">
+            <div>Nome: {{ store.myPokemons.name }}</div>
+            <div>Altezza: {{ store.myPokemons.height }}</div>
+            <div>Peso: {{ store.myPokemons.weight }}</div>
+          </div>
+          <!--Numero Pokemon-->
+          <div class="info_id">
+            <div>N° {{ store.myPokemons.id }}</div>
           </div>
         </div>
       </div>
@@ -86,7 +97,6 @@ export default {
     <!-- <img src="./assets/pokechicco.png" alt=""> -->
 
   </div>
-
 </template>
 
 <style lang="scss" scoped>
@@ -94,12 +104,12 @@ export default {
 
 
 
-.hide{
+.hide {
   display: none;
 }
 
 //ASSEGNARE ALL'IMMAGIN DELLA FEMMINA PER STYLE
-#female_img{
+#female_img {
   width: 20px;
   height: 26px;
 }
@@ -107,7 +117,7 @@ export default {
 #switch_button,
 #female,
 #male,
-#maleFemale{
+#maleFemale {
   padding: 0;
   padding-left: 0;
   padding-right: 0;
@@ -116,20 +126,23 @@ export default {
   border-radius: 50%;
   background-color: #e3e3e3;
 }
+
 //male rgb(91, 186, 245)
 #male {
   background-color: rgb(91, 186, 245);
   box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgb(85, 124, 221) 0 -3px 0 inset;
 }
 
-#maleFemale{
-background: linear-gradient(90deg, palevioletred 50%,rgb(91, 186, 245) 50%);
+#maleFemale {
+  background: linear-gradient(90deg, palevioletred 50%, rgb(91, 186, 245) 50%);
 }
-#female{
+
+#female {
   background-color: palevioletred;
   box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgb(181, 70, 107) 0 -3px 0 inset; // cambiare box shadow 
 }
-.switch_img{
+
+.switch_img {
   width: 25px;
   height: 25px;
 }
@@ -146,7 +159,8 @@ background: linear-gradient(90deg, palevioletred 50%,rgb(91, 186, 245) 50%);
 
 .type_test {
   width: 146px;
-  background-color: white;
+  background-color: rgb(121, 194, 134);
+  box-shadow: 0px 0px 2px 2px;
   height: 52px;
 }
 
@@ -183,7 +197,7 @@ background: linear-gradient(90deg, palevioletred 50%,rgb(91, 186, 245) 50%);
   /* background: red; */
 }
 
-#shiny_button{
+#shiny_button {
   padding: 0;
   padding-left: 0;
   padding-right: 0;
@@ -193,15 +207,17 @@ background: linear-gradient(90deg, palevioletred 50%,rgb(91, 186, 245) 50%);
   background-color: #e3e3e3;
 }
 
-.shiny_img{
+.shiny_img {
   width: 30px;
   height: 30px;
   // filter: invert(59%) sepia(12%) saturate(1980%) hue-rotate(290deg) brightness(92%) contrast(83%);
   //color: yellow;
 }
-.shiny_filter{
+
+.shiny_filter {
   filter: invert(59%) sepia(12%) saturate(1980%) hue-rotate(290deg) brightness(92%) contrast(83%);
 }
+
 .button-30 {
   align-items: center;
   appearance: none;
@@ -261,5 +277,20 @@ background: linear-gradient(90deg, palevioletred 50%,rgb(91, 186, 245) 50%);
   position: absolute;
   top: 315px;
   right: 0px;
+}
+
+#info {
+  width: 300px;
+  text-align: initial;
+  position: relative;
+  top: -185px;
+  left: 430px;
+  font-size: 25px;
+}
+.info_id{
+  position: relative;
+  top: 55px;
+  left: 0px;
+  font-size: 25px;
 }
 </style>

@@ -6,7 +6,7 @@ export const store = reactive({
     isFronte: true,
     isMale: false,
     shiny: false,
-    path: 'male',
+    path: 'female',
     pokemon: 'bulbasaur', // accetta solo lettere minuscole O numeri
     pokemonID: 1,
     myPokemons: [],
