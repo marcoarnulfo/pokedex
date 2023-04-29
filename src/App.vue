@@ -39,8 +39,11 @@ export default {
         </div>
         <!--Pagina senza error-->
         <div v-else>
+          <!-- <button @click="store.testButton()">
+            123
+          </button> -->
           <div class="container_pokemon pt-4"> <!-- Immagine del pokemon-->
-            <img class="pokemon" :src="store.getImg()" alt="123">
+            <img class="pokemon" :src="store.getImg()" alt="">
           </div>
           <div class="buttons d-flex gap-2"> <!--Blocco dei bottoni next & prev pokemons-->
             <button class="button-30" @click="store.prevPokemon()" role="button"><span
@@ -64,11 +67,18 @@ export default {
           </div>
           <!--Bottone shiny-->
           <div class="shiny">
-            <button class="rounded" @click="store.shinyButton()">Shiny</button>
+            <button id="shiny_button" class="button-30"  @click="store.shinyButton()">
+              <img class="shiny_img" :class="store.shiny ? 'shiny_filter' : ''" src="./assets/shiny.png" alt="">
+            </button>
           </div>
-          <!--Bottone gira-->
-          <div class="spin">
-            <button class="rounded" @click="store.spinButton()">&#10227;</button>
+          <!--Bottone spin e gender-->
+          <div class="spin  d-flex gap-3">
+            <button id="switch_button" class="button-30" @click="store.spinButton()">
+              <img class="switch_img" src="./assets/switch2.png" alt="">
+            </button>
+            <button id="maleFemale" class="button-30" @click="store.changeGender()">
+              <img class="switch_img" :src="store.getImagePath(`${store.path}`)" alt=""> 
+            </button>
           </div>
         </div>
       </div>
@@ -76,10 +86,53 @@ export default {
     <!-- <img src="./assets/pokechicco.png" alt=""> -->
 
   </div>
+
 </template>
 
 <style lang="scss" scoped>
 @import "./scss/style.scss";
+
+
+
+.hide{
+  display: none;
+}
+
+//ASSEGNARE ALL'IMMAGIN DELLA FEMMINA PER STYLE
+#female_img{
+  width: 20px;
+  height: 26px;
+}
+
+#switch_button,
+#female,
+#male,
+#maleFemale{
+  padding: 0;
+  padding-left: 0;
+  padding-right: 0;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #e3e3e3;
+}
+//male rgb(91, 186, 245)
+#male {
+  background-color: rgb(91, 186, 245);
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgb(85, 124, 221) 0 -3px 0 inset;
+}
+
+#maleFemale{
+background: linear-gradient(90deg, palevioletred 50%,rgb(91, 186, 245) 50%);
+}
+#female{
+  background-color: palevioletred;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgb(181, 70, 107) 0 -3px 0 inset; // cambiare box shadow 
+}
+.switch_img{
+  width: 25px;
+  height: 25px;
+}
 
 #real_type {
   background-color: blue;
@@ -130,12 +183,30 @@ export default {
   /* background: red; */
 }
 
-/* CSS */
+#shiny_button{
+  padding: 0;
+  padding-left: 0;
+  padding-right: 0;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #e3e3e3;
+}
+
+.shiny_img{
+  width: 30px;
+  height: 30px;
+  // filter: invert(59%) sepia(12%) saturate(1980%) hue-rotate(290deg) brightness(92%) contrast(83%);
+  //color: yellow;
+}
+.shiny_filter{
+  filter: invert(59%) sepia(12%) saturate(1980%) hue-rotate(290deg) brightness(92%) contrast(83%);
+}
 .button-30 {
   align-items: center;
   appearance: none;
-  background-color: #f6f5f0;
-  //background-color: #FCFCFD;
+  background-color: #e3e3e3;
+  //background-color: #f6f5f0;
   border-radius: 4px;
   border-width: 0;
   // box-shadow: inset 10px 10px 15px -10px #c3c3c3,
@@ -182,13 +253,13 @@ export default {
 
 .shiny {
   position: absolute;
-  top: 310px;
-  right: 130px;
+  top: 238px;
+  right: 91px;
 }
 
 .spin {
   position: absolute;
-  top: 310px;
-  left: 75px;
+  top: 315px;
+  right: 0px;
 }
 </style>

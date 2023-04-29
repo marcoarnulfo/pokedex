@@ -116,7 +116,7 @@ form {
     padding: 1.4rem 1.5rem;
     border-radius: 10px;
     box-shadow: inset 10px 10px 15px -10px #c3c3c3,
-        inset -10px -10px 15px -10px #ffffff;
+        inset -10px -10px 15px -10px #f3f3f3;
 }
 
 .finder__inner {

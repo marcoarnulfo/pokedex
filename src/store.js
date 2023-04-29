@@ -4,33 +4,180 @@ import axios from 'axios'
 
 export const store = reactive({
     isFronte: true,
-    //error:'',
-    count: 0,
-    pokemon: '1', // accetta solo lettere minuscole O numeri
+    isMale: false,
+    shiny: false,
+    path: 'male',
+    pokemon: 'bulbasaur', // accetta solo lettere minuscole O numeri
     pokemonID: 1,
     myPokemons: [],
+    frontImg: '',
+    getImagePath: function (imgPath) {
+        return new URL(`./assets/${imgPath}.png`, import.meta.url).href;
+    },
+    // getImg() {
+    //     if (this.isMale) {
+    //         if (this.isFronte) {
+    //             if (this.shiny) {
+    //                 return store.myPokemons.sprites.front_shiny
+    //             }
+    //             //return store.myPokemons.sprites.front_female
+    //             return store.myPokemons.sprites.front_default
+    //         } else if (!this.isFronte) {
+    //             if (this.shiny) {
+    //                 return store.myPokemons.sprites.back_shiny
+    //             }
+    //             return store.myPokemons.sprites.back_default
+    //         }
+    //     } else {
+    //         console.log('sono ELSA IN GET IMG');
+    //         if (this.isFronte) {
+    //             if (this.shiny) {
+    //                 return store.myPokemons.sprites.front_shiny_female
+    //             }
+    //             return this.frontImg 
+    //             //return store.myPokemons.sprites.front_female
+    //             //return store.myPokemons.sprites.front_female
+    //             //return store.myPokemons.sprites.front_default
+    //             //return this.frontMaleImg()
+    //         } else if (!this.isFronte) {
+    //             if (this.shiny) {
+    //                 return store.myPokemons.sprites.back_shiny_female
+    //             }
+    //             //this.backFemaleImg()
+    //             return store.myPokemons.sprites.back_female //ritorna img back femmina
+    //             //return store.myPokemons.sprites.back_default // ritorna img back maschio
+    //             //let Back : store.myPokemons.sprites.back_default
+    //         }
+    //     }
+    // },
+    //secondo test di getimg
     getImg() {
-        if (this.isFronte) {
-            if (this.shiny) {
-                return store.myPokemons.sprites.front_shiny
+        if (this.isMale) {
+            if (this.isFronte) {
+                if (this.shiny) {
+                    return store.myPokemons.sprites.front_shiny;
+                }
+                return store.myPokemons.sprites.front_default;
+            } else {
+                if (this.shiny) {
+                    return store.myPokemons.sprites.back_shiny;
+                }
+                return store.myPokemons.sprites.back_default;
             }
-            return store.myPokemons.sprites.front_default
-        } else if (!this.isFronte) {
-            if (this.shiny) {
-                return store.myPokemons.sprites.back_shiny
+        } else {
+            if (this.isFronte) {
+                if (this.shiny) {
+                    return store.myPokemons.sprites.front_shiny_female;
+                }
+                return store.myPokemons.sprites.front_female;
+            } else {
+                if (this.shiny) {
+                    return store.myPokemons.sprites.back_shiny_female;
+                }
+                return store.myPokemons.sprites.back_female;
             }
-            return store.myPokemons.sprites.back_default
         }
     },
 
+    // testButton(){
+    //     if (store.myPokemons.sprites.front_female !== null) {
+    //         if(this.counterTest){
+    //             this.frontImg = store.myPokemons.sprites.front_default
+    //             this.counterTest = false
+    //             console.log('entro in ELSE di test button');
+    //         }
+    //         if(!this.counterTest){
+    //             this.frontImg = store.myPokemons.sprites.front_female
+    //             //console.log(this.isMale);
+    //             this.counterTest = true
+    //             console.log('primo IF');
+    //             console.log(this.counterTest);
+    //         }
+
+    //     } 
+    // },
+    // changeGender(){
+    //     if (store.myPokemons.sprites.front_female !== null) {
+    //         if (!this.isMale) {
+    //             this.isMale = true
+    //             //this.frontImg = store.myPokemons.sprites.front_female
+    //             //this.frontFemaleImg()
+    //             this.path = 'female'
+    //         } else {
+    //             this.isMale = false
+    //             this.path = 'male'
+    //         }
+    //     } 
+    // },
+    // secondo test
+    // changeGender: function () {
+    //     if (store.myPokemons.sprites.front_female !== null) {
+    //         if (!this.isMale) {
+    //             this.isMale = true
+    //             this.frontImg = store.myPokemons.sprites.front_female
+    //             this.path = 'female'
+    //         } else {
+    //             this.isMale = false
+    //             this.path = 'male'
+    //         }
+    //         // Incrementa il contatore di click
+    //         this.genderClickCount++
+    //         // Cambia la frontImg in base al contatore
+    //         if (this.genderClickCount % 2 === 0) {
+    //             this.frontImg = store.myPokemons.sprites.front_default
+    //         } else {
+    //             this.frontImg = store.myPokemons.sprites.front_female
+    //         }
+    //     }
+    // },
+    // terzo test 
+    // changeGender: function () {
+    //     if (store.myPokemons.sprites.front_female !== null) {
+    //         if (!this.isMale) {
+    //             this.isMale = true
+    //             this.path = 'female'
+    //         } else {
+    //             this.isMale = false
+    //             this.path = 'male'
+    //         }
+    //         // Cambia la frontImg in base al genere
+    //         if (this.isMale) {
+    //             this.frontImg = store.myPokemons.sprites.front_default
+    //         } else {
+    //             this.frontImg = store.myPokemons.sprites.front_female
+    //         }
+    //     }
+    // },
+    // quarto test
+    changeGender: function () {
+        if (store.myPokemons.sprites.front_female !== null) {
+            // Inverti il valore di isMale prima di aggiornare frontImg
+            if (!this.isMale) {
+                this.isMale = true
+                this.path = 'male'
+            } else {
+                this.isMale = false
+                this.path = 'female'
+            }
+    
+            // Aggiorna frontImg in base al genere
+            if (this.isMale) {
+                this.frontImg = store.myPokemons.sprites.front_default
+            } else {
+                //this.frontImg = store.myPokemons.sprites.front_female
+            }
+        }
+    },
     callApi() {
         axios.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemon}`)
             .then(response => {
+                //this.isMale = true
                 console.log(response.data.name); // stampa il nome del pokemon
                 console.log(response.data.id); // stampa l'id del pokemon
                 //console.log(response.data.types[0].type.name); // accedo al primo tipo. potrebbe essercene anche un secondo
                 this.myPokemons = response.data
                 this.pokemonID = this.myPokemons.id
+                this.pokemon = this.pokemonID // bug bulbasaur fix
 
                 //console.log(this.pokemon_type);
                 console.log(response.data.height) // stampa l'altezza
@@ -41,28 +188,29 @@ export const store = reactive({
                 console.log(response.data.sprites.back_shiny) // immaigne del back del pokemon SHINY
                 console.log(response.data)
                 console.log(response.data.types);
-                //console.log(this.myPokemons);
-                // creare bottone sul pallino nero in basso a sinistra con lo switch maschio to femmina (Creare bottone con immagine MASCHIO sfondo blu al click, animazione switch to immagine logo FEMMINA sfondo rosa. se un pokemon maschio è uguale ad un pokemon femmina. mettere simbolo maschio e femmina chainato) // ricordare di fare un check logico sull'immagine della femmina. se non c'è restituisce null
-                // creare creare stellina forse rosa sul bottone rosso per lo switch to shiny
-                // usare i rettangolini vicino al pallino nero per switch front img to back img
-                // if(this.pokemon == String){
-                //     this.pokemonID = response.data.id 
-                //     this.pokemon = this.pokemonID
-                // }
                 console.log(this.pokemon, 'this.pokemon');
+                console.log(this.pokemonID, 'this.pokemonID');
+                console.log(this.myPokemons.name, 'this.pokemon.name');
                 console.log(response.data.id);
                 console.log(this.myPokemons.id);
+                if (store.myPokemons.sprites.front_female !== null) {
+                    // se c'è differenza tra generi is male va a false
+                    this.isMale = true
+                    this.path = 'male'
+                    console.log(this.isMale, 'è femmina?');
+                    this.frontImg = store.myPokemons.sprites.front_default
+                } else { // se non c'è differenza tra generi, is male va a true
+                    this.frontImg = store.myPokemons.sprites.front_default
+                    this.isMale = true
+                    this.path = 'male&female'
+                    console.log(this.isMale, 'è maschio?');
+                }
             })
             .catch(error => {
                 console.log(error);
                 this.myPokemons = []
             });
     },
-
-    // test(){
-    //     this.pokemon++
-    //     this.callApi()
-    // }
     nextPokemon() {
         if (typeof this.pokemon === 'string') {
             //Reset shiny/spin
@@ -95,6 +243,8 @@ export const store = reactive({
             }
             this.pokemonID--
             this.pokemon = this.pokemonID
+            console.log(this.pokemon, 'this.pokemon dentro bottone');
+            console.log(this.pokemonID, 'this.pokemon dentro bottone');
             this.callApi()
         }
     },
