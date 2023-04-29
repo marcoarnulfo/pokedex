@@ -14,43 +14,6 @@ export const store = reactive({
     getImagePath: function (imgPath) {
         return new URL(`./assets/${imgPath}.png`, import.meta.url).href;
     },
-    // getImg() {
-    //     if (this.isMale) {
-    //         if (this.isFronte) {
-    //             if (this.shiny) {
-    //                 return store.myPokemons.sprites.front_shiny
-    //             }
-    //             //return store.myPokemons.sprites.front_female
-    //             return store.myPokemons.sprites.front_default
-    //         } else if (!this.isFronte) {
-    //             if (this.shiny) {
-    //                 return store.myPokemons.sprites.back_shiny
-    //             }
-    //             return store.myPokemons.sprites.back_default
-    //         }
-    //     } else {
-    //         console.log('sono ELSA IN GET IMG');
-    //         if (this.isFronte) {
-    //             if (this.shiny) {
-    //                 return store.myPokemons.sprites.front_shiny_female
-    //             }
-    //             return this.frontImg 
-    //             //return store.myPokemons.sprites.front_female
-    //             //return store.myPokemons.sprites.front_female
-    //             //return store.myPokemons.sprites.front_default
-    //             //return this.frontMaleImg()
-    //         } else if (!this.isFronte) {
-    //             if (this.shiny) {
-    //                 return store.myPokemons.sprites.back_shiny_female
-    //             }
-    //             //this.backFemaleImg()
-    //             return store.myPokemons.sprites.back_female //ritorna img back femmina
-    //             //return store.myPokemons.sprites.back_default // ritorna img back maschio
-    //             //let Back : store.myPokemons.sprites.back_default
-    //         }
-    //     }
-    // },
-    //secondo test di getimg
     getImg() {
         if (this.isMale) {
             if (this.isFronte) {
@@ -78,77 +41,6 @@ export const store = reactive({
             }
         }
     },
-
-    // testButton(){
-    //     if (store.myPokemons.sprites.front_female !== null) {
-    //         if(this.counterTest){
-    //             this.frontImg = store.myPokemons.sprites.front_default
-    //             this.counterTest = false
-    //             console.log('entro in ELSE di test button');
-    //         }
-    //         if(!this.counterTest){
-    //             this.frontImg = store.myPokemons.sprites.front_female
-    //             //console.log(this.isMale);
-    //             this.counterTest = true
-    //             console.log('primo IF');
-    //             console.log(this.counterTest);
-    //         }
-
-    //     } 
-    // },
-    // changeGender(){
-    //     if (store.myPokemons.sprites.front_female !== null) {
-    //         if (!this.isMale) {
-    //             this.isMale = true
-    //             //this.frontImg = store.myPokemons.sprites.front_female
-    //             //this.frontFemaleImg()
-    //             this.path = 'female'
-    //         } else {
-    //             this.isMale = false
-    //             this.path = 'male'
-    //         }
-    //     } 
-    // },
-    // secondo test
-    // changeGender: function () {
-    //     if (store.myPokemons.sprites.front_female !== null) {
-    //         if (!this.isMale) {
-    //             this.isMale = true
-    //             this.frontImg = store.myPokemons.sprites.front_female
-    //             this.path = 'female'
-    //         } else {
-    //             this.isMale = false
-    //             this.path = 'male'
-    //         }
-    //         // Incrementa il contatore di click
-    //         this.genderClickCount++
-    //         // Cambia la frontImg in base al contatore
-    //         if (this.genderClickCount % 2 === 0) {
-    //             this.frontImg = store.myPokemons.sprites.front_default
-    //         } else {
-    //             this.frontImg = store.myPokemons.sprites.front_female
-    //         }
-    //     }
-    // },
-    // terzo test 
-    // changeGender: function () {
-    //     if (store.myPokemons.sprites.front_female !== null) {
-    //         if (!this.isMale) {
-    //             this.isMale = true
-    //             this.path = 'female'
-    //         } else {
-    //             this.isMale = false
-    //             this.path = 'male'
-    //         }
-    //         // Cambia la frontImg in base al genere
-    //         if (this.isMale) {
-    //             this.frontImg = store.myPokemons.sprites.front_default
-    //         } else {
-    //             this.frontImg = store.myPokemons.sprites.front_female
-    //         }
-    //     }
-    // },
-    // quarto test
     changeGender: function () {
         if (store.myPokemons.sprites.front_female !== null) {
             // Inverti il valore di isMale prima di aggiornare frontImg
@@ -159,13 +51,10 @@ export const store = reactive({
                 this.isMale = false
                 this.path = 'female'
             }
-    
             // Aggiorna frontImg in base al genere
             if (this.isMale) {
                 this.frontImg = store.myPokemons.sprites.front_default
-            } else {
-                //this.frontImg = store.myPokemons.sprites.front_female
-            }
+            } 
         }
     },
     callApi() {
