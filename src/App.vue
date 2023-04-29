@@ -12,9 +12,9 @@ export default {
       store
     }
   },
-  components:{
+  components: {
     SearchBar,
-},
+  },
   mounted() {
     store.callApi()
   }
@@ -27,7 +27,7 @@ export default {
   <div class="text-center">
     <div class="bg_img">
       <div class="test">
-        <SearchBar/>
+        <SearchBar />
         <div v-if="store.myPokemons.length < 1">
           PROBLEMI PROBLEMI
           <div class="buttons d-flex gap-2"> <!--Blocco dei bottoni next & prev pokemons-->
@@ -37,6 +37,7 @@ export default {
                 class="arrow">&#11208;</span></button>
           </div>
         </div>
+        <!--Pagina senza error-->
         <div v-else>
           <div class="container_pokemon pt-4"> <!-- Immagine del pokemon-->
             <img class="pokemon" :src="store.getImg()" alt="123">
@@ -49,8 +50,9 @@ export default {
           </div>
           <div class="types d-flex gap-3"> <!--Blocco pokemon's types-->
             <div class="type_test  rounded"> <!-- Blocco bianco-->
-              <div :id="store.myPokemons.types[0].type.name" class="type_test d-flex justify-content-center align-items-center rounded"> <!-- Primo tipo-->
-                  {{ store.myPokemons.types[0].type.name }}
+              <div :id="store.myPokemons.types[0].type.name"
+                class="type_test d-flex justify-content-center align-items-center rounded"> <!-- Primo tipo-->
+                {{ store.myPokemons.types[0].type.name }}
               </div>
             </div>
             <div class="type_test rounded"> <!-- Blocco bianco-->
@@ -59,6 +61,14 @@ export default {
                 {{ store.myPokemons.types[1].type.name }}
               </div>
             </div>
+          </div>
+          <!--Bottone shiny-->
+          <div class="shiny">
+            <button class="rounded" @click="store.shinyButton()">Shiny</button>
+          </div>
+          <!--Bottone gira-->
+          <div class="spin">
+            <button class="rounded" @click="store.spinButton()">&#10227;</button>
           </div>
         </div>
       </div>
@@ -69,8 +79,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
 @import "./scss/style.scss";
+
 #real_type {
   background-color: blue;
 }
@@ -132,7 +142,7 @@ export default {
   //           inset -10px -10px 15px -10px #ffffff;
 
   box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #c3c3c3 0 -3px 0 inset;
-  
+
   box-sizing: border-box;
   color: #36395A;
   cursor: pointer;
@@ -168,4 +178,17 @@ export default {
 .button-30:active {
   box-shadow: #D6D6E7 0 3px 7px inset;
   transform: translateY(2px);
-}</style>
+}
+
+.shiny {
+  position: absolute;
+  top: 310px;
+  right: 130px;
+}
+
+.spin {
+  position: absolute;
+  top: 310px;
+  left: 75px;
+}
+</style>

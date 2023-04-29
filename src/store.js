@@ -11,8 +11,14 @@ export const store = reactive({
     myPokemons: [],
     getImg() {
         if (this.isFronte) {
+            if (this.shiny) {
+                return store.myPokemons.sprites.front_shiny
+            }
             return store.myPokemons.sprites.front_default
         } else if (!this.isFronte) {
+            if (this.shiny) {
+                return store.myPokemons.sprites.back_shiny
+            }
             return store.myPokemons.sprites.back_default
         }
     },
@@ -59,10 +65,20 @@ export const store = reactive({
     // }
     nextPokemon() {
         if (typeof this.pokemon === 'string') {
+            //Reset shiny/spin
+            if (this.shiny || !this.isFronte) {
+                this.shiny = false
+                this.isFronte = true
+            }
             this.pokemonID++
             this.pokemon = this.pokemonID
             this.callApi()
         } else {
+            //Reset shiny/spin
+            if (this.shiny || !this.isFronte) {
+                this.shiny = false
+                this.isFronte = true
+            }
             this.pokemonID++
             this.pokemon = this.pokemonID
             this.callApi()
@@ -72,9 +88,28 @@ export const store = reactive({
     prevPokemon() {
         if (typeof this.pokemon === 'string' || this.pokemonID > 1) {
             console.log('sono dentro IF type OFF &&');
+            //Reset shiny/spin
+            if (this.shiny || !this.isFronte) {
+                this.shiny = false
+                this.isFronte = true
+            }
             this.pokemonID--
             this.pokemon = this.pokemonID
             this.callApi()
+        }
+    },
+    shinyButton() {
+        if (!this.shiny) {
+            this.shiny = true
+        } else {
+            this.shiny = false
+        }
+    },
+    spinButton() {
+        if (!this.isFronte) {
+            this.isFronte = true
+        } else {
+            this.isFronte = false
         }
     }
 
