@@ -6,9 +6,12 @@
 *{
     font-family: 'VT323', monospace;
     font-weight: bold;
+    letter-spacing: 0.60px;
 }
 
 // Variabili e classi tipi colore
+$bgMix : linear-gradient(90deg, palevioletred 50%, rgb(91, 186, 245) 50%);
+
 $grass: #9bcc50;
 #grass {
     background-color: $grass;

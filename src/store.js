@@ -3,6 +3,8 @@ import { reactive } from 'vue'
 import axios from 'axios'
 
 export const store = reactive({
+    // TODO tre lucette in alto da rendere sempre intermittenti forse.
+    // TODO lucetta in basso farla illuminare un paio di volte quando si fa la ricerca
     isFronte: true,
     isMale: false,
     shiny: false,
@@ -58,6 +60,9 @@ export const store = reactive({
         }
     },
     callApi() {
+        if (typeof this.pokemon === 'string') {
+            this.pokemon = this.pokemon.toLowerCase()
+        }
         axios.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemon}`)
             .then(response => {
                 //this.isMale = true
@@ -149,6 +154,12 @@ export const store = reactive({
             this.isFronte = true
         } else {
             this.isFronte = false
+        }
+    },
+    playSound (sound){
+        if(sound){
+            var audio = new Audio(sound);
+            audio.play();
         }
     }
 

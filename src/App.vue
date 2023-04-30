@@ -77,19 +77,25 @@ export default {
               <img class="switch_img" src="./assets/switch2.png" alt="">
             </button>
             <!--Cambio gender-->
-            <button :id="store.isMale ? 'male' : (store.isMale === false ? 'female' : '') " class="button-30" @click="store.changeGender()">
+            <button :id="store.path == 'male' ? 'male' : '' + store.path == 'female' ? 'female' : '' + store.path == 'male&female' ? 'maleFemale' : '' " class="button-30" @click="store.changeGender()">
               <img class="switch_img" :src="store.getImagePath(`${store.path}`)" alt="">
             </button>
           </div>
           <!--Statistiche Pokemon-->
           <div id="info">
             <div>Nome: {{ store.myPokemons.name }}</div>
-            <div>Altezza: {{ store.myPokemons.height }}</div>
-            <div>Peso: {{ store.myPokemons.weight }}</div>
+            <div>Altezza: {{ store.myPokemons.height / 10  }} m</div>
+            <div>Peso: {{ store.myPokemons.weight / 10}} kg</div>
           </div>
           <!--Numero Pokemon-->
           <div class="info_id">
             <div>N° {{ store.myPokemons.id }}</div>
+            <div class="red_led">
+              <button class="btn btn-primary" @click.prevent="store.playSound('http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3')">
+
+              </button>
+              <!-- <audio id="audio-click" src="./assets/audio/Beep.mp3"></audio>  -->
+            </div>
           </div>
         </div>
       </div>
@@ -102,7 +108,15 @@ export default {
 <style lang="scss" scoped>
 @import "./scss/style.scss";
 
-
+.red_led{
+  width: 50px;
+  height: 50px;
+  background-color: rgb(202, 79, 79);
+  &:hover{
+    box-shadow: 0 0 50px rgb(255, 0, 0);
+    background-color: rgb(255, 0, 0);
+  }
+}
 
 .hide {
   display: none;
@@ -121,8 +135,8 @@ export default {
   padding: 0;
   padding-left: 0;
   padding-right: 0;
-  height: 40px;
-  width: 40px;
+  height: 42px;
+  width: 42px;
   border-radius: 50%;
   background-color: #e3e3e3;
 }
@@ -130,16 +144,28 @@ export default {
 //male rgb(91, 186, 245)
 #male {
   background-color: rgb(91, 186, 245);
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgb(85, 124, 221) 0 -3px 0 inset;
+  // box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgb(85, 124, 221) 0 -3px 0 inset;
+
+  box-shadow: inset 0px -3px 0px 0px rgba(0,0,0,0.3), inset 0px -3px 0px 0px transparent;
 }
 
 #maleFemale {
-  background: linear-gradient(90deg, palevioletred 50%, rgb(91, 186, 245) 50%);
+  background-image: linear-gradient(to right, palevioletred 50%,  rgb(91, 186, 245) 50%);
+  box-shadow: inset 0px -3px 0px 0px rgba(0,0,0,0.3), inset 0px -3px 0px 0px transparent;
+
+  //background: $bgMix;
+  //box-shadow: inset 0px -3px 0px linear-gradient(90deg, red 50%, blue 50%);
+  //box-shadow: inset 0px -3px 0px $bgMix ;
+  // box-shadow: inset 0px -3px 0px transparent, inset 0px -3px 0px linear-gradient(to right, red 50%, blue 50%), inset 0px -3px 0px transparent;
+  //box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgb(181, 70, 107) 0 -3px 0 inset;
 }
 
 #female {
   background-color: palevioletred;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgb(181, 70, 107) 0 -3px 0 inset; // cambiare box shadow 
+  //background-image: palevioletred;
+  box-shadow: inset 0px -4px 0px 0px rgba(0,0,0,0.5), inset 0px -3px 0px 0px transparent;
+  // box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgb(181, 70, 107) 0 -3px 0 inset; // cambiare box shadow 
+
 }
 
 .switch_img {
@@ -252,6 +278,8 @@ export default {
   will-change: box-shadow, transform;
   font-size: 18px;
 }
+
+// creare classe a doc per Male & female
 
 .button-30:focus {
   box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;

@@ -56,13 +56,14 @@ export default {
 <template>
     <div class="container_custom">
 
-        <form autocomplete="off">
+        <form  autocomplete="off">
             <div class="finder">
                 <div class="finder__outer">
                     <div class="finder__inner">
                         <div class="finder__icon" ref="icon"></div>
                         <input ref="myInput" @keydown.enter="sendValue()" class="finder__input" type="text" name="q"
                             placeholder="Search Pokemon" />
+                            <!-- Nascondere SOLO l'input in caso di accensione / spegnimento pokedex-->
                     </div>
                 </div>
             </div>
