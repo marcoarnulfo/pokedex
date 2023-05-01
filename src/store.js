@@ -8,6 +8,7 @@ export const store = reactive({
     isFronte: true,
     isMale: false,
     shiny: false,
+    power: true,
     path: 'female',
     pokemon: 'bulbasaur', // accetta solo lettere minuscole O numeri
     pokemonID: 1,
@@ -161,6 +162,14 @@ export const store = reactive({
             var audio = new Audio(sound);
             audio.play();
         }
+    },
+    powerOn(){
+        if (!this.power) {
+            this.power = true
+        } else {
+            this.power = false
+            this.pokemon = 'bulbasaur'
+            this.callApi()
+        }
     }
-
 })

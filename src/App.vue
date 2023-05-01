@@ -26,30 +26,68 @@ export default {
 <template>
   <div class="text-center">
     <div class="bg_img">
+      <!--Bottone power-->
+      <div class="">
+        <button class="power button-30"
+          @click.prevent="store.playSound('http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3') + store.powerOn()">
+          &#9211;
+        </button>
+      </div>
       <div class="test">
-        <SearchBar />
-        <div v-if="store.myPokemons.length < 1">
-          PROBLEMI PROBLEMI
+
+        <!--pagina off-->
+        <div v-if="store.power">
+          <!--Text area-->
+          <div class="text_area"></div>
           <div class="buttons d-flex gap-2"> <!--Blocco dei bottoni next & prev pokemons-->
-            <button class="button-30" @click="store.prevPokemon()" role="button"><span
-                class="arrow">&#11207;</span></button>
-            <button class="button-30 " @click="store.nextPokemon()" role="button"><span
-                class="arrow">&#11208;</span></button>
+            <button class="button-30" role="button"><span class="arrow"><i
+                  class="fa-solid fa-caret-left"></i></span></button>
+            <button class="button-30" role="button"><span class="arrow"><i
+                  class="fa-solid fa-caret-right"></i></span></button>
+          </div>
+          <div class="types d-flex gap-3"> <!--Blocco pokemon's types-->
+            <div class="type_test  rounded"> <!-- Blocco bianco-->
+              <div class="type_test d-flex justify-content-center align-items-center rounded"> <!-- Primo tipo-->
+              </div>
+            </div>
+            <div class="type_test rounded"> <!-- Blocco bianco-->
+              <div class="type_test
+                  d-flex justify-content-center align-items-center rounded"> <!-- Secondo tipo-->
+              </div>
+            </div>
+          </div>
+          <!--Bottone shiny-->
+          <div class="shiny">
+            <button id="shiny_button" class="button-30">
+              <img class="shiny_img" src="./assets/shiny.png" alt="">
+            </button>
+          </div>
+          <!--Bottone spin e gender-->
+          <div class="spin  d-flex gap-3">
+            <button id="switch_button" class="button-30">
+              <img class="switch_img" src="./assets/switch2.png" alt="">
+            </button>
+            <!--Cambio gender-->
+            <button
+              :id="store.path == 'male' ? 'male' : '' + store.path == 'female' ? 'female' : '' + store.path == 'male&female' ? 'maleFemale' : ''"
+              class="button-30 disable">
+              <img class="switch_img" :src="store.getImagePath(`${store.path}`)" alt="">
+            </button>
           </div>
         </div>
-        <!--Pagina senza error-->
+
+        <!--Pagina on-->
+
         <div v-else>
-          <!-- <button @click="store.testButton()">
-            123
-          </button> -->
+          <SearchBar></SearchBar>
           <div class="container_pokemon pt-4"> <!-- Immagine del pokemon-->
             <img class="pokemon" :src="store.getImg()" alt="">
           </div>
           <div class="buttons d-flex gap-2"> <!--Blocco dei bottoni next & prev pokemons-->
-            <button class="button-30" @click="store.prevPokemon()" role="button"><span
-                class="arrow">&#11207;</span></button>
-            <button class="button-30" @click="store.nextPokemon()" role="button"><span
-                class="arrow">&#11208;</span></button>
+            <button class="button-30" @click="store.prevPokemon()" role="button"><span class="arrow"><i
+                  class="fa-solid fa-caret-left"></i></span></button>
+            <button class="button-30" @click="store.nextPokemon()" role="button"><span class="arrow"><i
+                  class="fa-solid fa-caret-right"></i></span></button>
           </div>
           <div class="types d-flex gap-3"> <!--Blocco pokemon's types-->
             <div class="type_test  rounded"> <!-- Blocco bianco-->
@@ -77,45 +115,40 @@ export default {
               <img class="switch_img" src="./assets/switch2.png" alt="">
             </button>
             <!--Cambio gender-->
-            <button :id="store.path == 'male' ? 'male' : '' + store.path == 'female' ? 'female' : '' + store.path == 'male&female' ? 'maleFemale' : '' " class="button-30" @click="store.changeGender()">
+            <button
+              :id="store.path == 'male' ? 'male' : '' + store.path == 'female' ? 'female' : '' + store.path == 'male&female' ? 'maleFemale' : ''"
+              class="button-30" @click="store.changeGender()">
               <img class="switch_img" :src="store.getImagePath(`${store.path}`)" alt="">
             </button>
           </div>
           <!--Statistiche Pokemon-->
           <div id="info">
             <div>Nome: {{ store.myPokemons.name }}</div>
-            <div>Altezza: {{ store.myPokemons.height / 10  }} m</div>
-            <div>Peso: {{ store.myPokemons.weight / 10}} kg</div>
+            <div>Altezza: {{ store.myPokemons.height / 10 }} m</div>
+            <div>Peso: {{ store.myPokemons.weight / 10 }} kg</div>
           </div>
           <!--Numero Pokemon-->
           <div class="info_id">
             <div>N° {{ store.myPokemons.id }}</div>
-            <div class="red_led">
-              <button class="btn btn-primary" @click.prevent="store.playSound('http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3')">
-
-              </button>
-              <!-- <audio id="audio-click" src="./assets/audio/Beep.mp3"></audio>  -->
-            </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- <img src="./assets/pokechicco.png" alt=""> -->
-
   </div>
 </template>
 
 <style lang="scss" scoped>
 @import "./scss/style.scss";
 
-.red_led{
-  width: 50px;
-  height: 50px;
-  background-color: rgb(202, 79, 79);
-  &:hover{
-    box-shadow: 0 0 50px rgb(255, 0, 0);
-    background-color: rgb(255, 0, 0);
-  }
+.text_area {
+  position: absolute;
+  top: 171px;
+  left: 420px;
+  width: 305px;
+  height: 90px;
+  background-color: rgb(121, 194, 134);
+  border-radius: 15px;
+  box-shadow: 0px 0px 2px 2px;
 }
 
 .hide {
@@ -146,12 +179,12 @@ export default {
   background-color: rgb(91, 186, 245);
   // box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgb(85, 124, 221) 0 -3px 0 inset;
 
-  box-shadow: inset 0px -3px 0px 0px rgba(0,0,0,0.3), inset 0px -3px 0px 0px transparent;
+  box-shadow: inset 0px -3px 0px 0px rgba(0, 0, 0, 0.3), inset 0px -3px 0px 0px transparent;
 }
 
 #maleFemale {
-  background-image: linear-gradient(to right, palevioletred 50%,  rgb(91, 186, 245) 50%);
-  box-shadow: inset 0px -3px 0px 0px rgba(0,0,0,0.3), inset 0px -3px 0px 0px transparent;
+  background-image: linear-gradient(to right, palevioletred 50%, rgb(91, 186, 245) 50%);
+  box-shadow: inset 0px -3px 0px 0px rgba(0, 0, 0, 0.3), inset 0px -3px 0px 0px transparent;
 
   //background: $bgMix;
   //box-shadow: inset 0px -3px 0px linear-gradient(90deg, red 50%, blue 50%);
@@ -163,7 +196,7 @@ export default {
 #female {
   background-color: palevioletred;
   //background-image: palevioletred;
-  box-shadow: inset 0px -4px 0px 0px rgba(0,0,0,0.5), inset 0px -3px 0px 0px transparent;
+  box-shadow: inset 0px -4px 0px 0px rgba(0, 0, 0, 0.5), inset 0px -3px 0px 0px transparent;
   // box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgb(181, 70, 107) 0 -3px 0 inset; // cambiare box shadow 
 
 }
@@ -315,10 +348,24 @@ export default {
   left: 430px;
   font-size: 25px;
 }
-.info_id{
+
+.info_id {
   position: relative;
   top: 55px;
   left: 0px;
   font-size: 25px;
+}
+
+.power {
+  position: relative;
+  top: 60px;
+  right: 370px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: rgb(212, 212, 212);
+  color: red;
+  border: none;
+  font-size: 40px;
 }
 </style>
