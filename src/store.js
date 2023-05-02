@@ -69,9 +69,13 @@ export const store = reactive({
         axios.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemon}`)
             .then(response => {
                 this.errore = false
+                if (response.data.sprites.front_default == null) {
+                    this.errore = true // fix messo per il 1009 ed il 1010 
+                }
                 this.myPokemons = response.data
                 this.pokemonID = this.myPokemons.id
                 this.pokemon = this.pokemonID 
+                console.log(this.myPokemons);
                 if (store.myPokemons.sprites.front_female !== null) {
                     // se c'è differenza tra generi is male va a false
                     this.isMale = true
@@ -85,7 +89,7 @@ export const store = reactive({
                 }
             })
             .catch(error => {
-                //console.log(error);
+                console.log(error);
                 this.myPokemons = []
                 this.path = 'male&female'
                 this.errore = true
