@@ -6,6 +6,7 @@ import Power from './components/Power.vue'
 import Led from './components/Led.vue'
 import InputLed from './components/InputLed.vue'
 import StatusLed from './components/StatusLed.vue'
+import Authors from './components/Authors.vue'
 
 
 export default {
@@ -20,7 +21,8 @@ export default {
     Power,
     Led,
     InputLed,
-    StatusLed
+    StatusLed,
+    Authors
 },
   mounted() {
     store.callApi()
@@ -32,6 +34,7 @@ export default {
 
 <template>
   <div  class="text-center bg_pokemon">
+    <Authors/>
     <div>
       <img class="logo" src="./assets/pokemonLogo.png" alt="">
     </div>
