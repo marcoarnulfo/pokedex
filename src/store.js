@@ -9,6 +9,7 @@ export const store = reactive({
     isMale: false,
     shiny: false,
     power: true,
+    error: false,
     path: 'female',
     pokemon: 'bulbasaur', // accetta solo lettere minuscole O numeri
     pokemonID: 1,
@@ -57,7 +58,7 @@ export const store = reactive({
             // Aggiorna frontImg in base al genere
             if (this.isMale) {
                 this.frontImg = store.myPokemons.sprites.front_default
-            } 
+            }
         }
     },
     callApi() {
@@ -66,6 +67,7 @@ export const store = reactive({
         }
         axios.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemon}`)
             .then(response => {
+                console.log(this.error, 'api');
                 //this.isMale = true
                 //console.log(response.data.name); // stampa il nome del pokemon
                 //console.log(response.data.id); // stampa l'id del pokemon
@@ -104,6 +106,8 @@ export const store = reactive({
             .catch(error => {
                 console.log(error);
                 this.myPokemons = []
+                this.error = true
+                console.log(this.error, 'catch');
             });
     },
     nextPokemon() {
@@ -157,19 +161,20 @@ export const store = reactive({
             this.isFronte = false
         }
     },
-    playSound (sound){
-        if(sound){
+    playSound(sound) {
+        if (sound) {
             var audio = new Audio(sound);
             audio.play();
         }
     },
-    powerOn(){
+    powerOn() {
         if (!this.power) {
             this.power = true
         } else {
             this.power = false
             this.pokemon = 'bulbasaur'
             this.callApi()
+            console.log('if power on');
         }
     }
 })

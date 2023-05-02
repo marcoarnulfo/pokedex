@@ -4,6 +4,7 @@
 import { store } from './store.js'
 import SearchBar from './components/SearchBar.vue'
 import Power from './components/Power.vue'
+import Led from './components/Led.vue'
 
 
 export default {
@@ -16,9 +17,10 @@ export default {
   components: {
     SearchBar,
     Power,
+    Led,
   },
   mounted() {
-    store.callApi()
+    //store.callApi()
   }
 }
 
@@ -30,6 +32,7 @@ export default {
     <div class="bg_img">
       <!--Bottone power-->
       <Power></Power>
+      <Led></Led>
 
       <div class="test">
         <!--pagina off-->
@@ -77,8 +80,8 @@ export default {
 
         <div v-else>
           <SearchBar></SearchBar>
-          <div class="container_pokemon pt-4"> <!-- Immagine del pokemon-->
-            <img class="pokemon" :src="store.getImg()" alt="">
+          <div v-if="store.error == false" class="container_pokemon pt-4"> <!-- Immagine del pokemon-->
+            <img  class="pokemon" :src="store.getImg()" alt="">
           </div>
           <div class="buttons d-flex gap-2"> <!--Blocco dei bottoni next & prev pokemons-->
             <button class="button-30" @click="store.prevPokemon()" role="button"><span class="arrow"><i
@@ -88,16 +91,19 @@ export default {
           </div>
           <div class="types d-flex gap-3"> <!--Blocco pokemon's types-->
             <div class="type_test  rounded"> <!-- Blocco bianco-->
-              <div :id="store.myPokemons.types[0].type.name"
+              <div v-if="store.error == true" :id="store.myPokemons.types[0].type.name"
                 class="type_test d-flex justify-content-center align-items-center rounded"> <!-- Primo tipo-->
                 {{ store.myPokemons.types[0].type.name }}
               </div>
             </div>
             <div class="type_test rounded"> <!-- Blocco bianco-->
-              <div v-if="store.myPokemons.types.length > 1" :id="store.myPokemons.types[1].type.name" class="type_test
+              <div v-if="store.error == true">
+                <div v-if="store.myPokemons.types.length > 1" :id="store.myPokemons.types[1].type.name" class="type_test
                   d-flex justify-content-center align-items-center rounded"> <!-- Secondo tipo-->
                 {{ store.myPokemons.types[1].type.name }}
               </div>
+              </div>
+              
             </div>
           </div>
           <!--Bottone shiny-->
