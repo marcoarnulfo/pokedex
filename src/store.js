@@ -67,6 +67,7 @@ export const store = reactive({
         }
         axios.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemon}`)
             .then(response => {
+                this.errore = false
                 //this.isMale = true
                 //console.log(response.data.name); // stampa il nome del pokemon
                 //console.log(response.data.id); // stampa l'id del pokemon
@@ -110,40 +111,45 @@ export const store = reactive({
             });
     },
     nextPokemon() {
-        if (typeof this.pokemon === 'string') {
-            //Reset shiny/spin
-            if (this.shiny || !this.isFronte) {
-                this.shiny = false
-                this.isFronte = true
+        if (!this.errore) {
+            
+            if (typeof this.pokemon === 'string') {
+                //Reset shiny/spin
+                if (this.shiny || !this.isFronte) {
+                    this.shiny = false
+                    this.isFronte = true
+                }
+                this.pokemonID++
+                this.pokemon = this.pokemonID
+                this.callApi()
+            } else {
+                //Reset shiny/spin
+                if (this.shiny || !this.isFronte) {
+                    this.shiny = false
+                    this.isFronte = true
+                }
+                this.pokemonID++
+                this.pokemon = this.pokemonID
+                this.callApi()
             }
-            this.pokemonID++
-            this.pokemon = this.pokemonID
-            this.callApi()
-        } else {
-            //Reset shiny/spin
-            if (this.shiny || !this.isFronte) {
-                this.shiny = false
-                this.isFronte = true
-            }
-            this.pokemonID++
-            this.pokemon = this.pokemonID
-            this.callApi()
+            //this.pokemon = this.pokemonID
         }
-        //this.pokemon = this.pokemonID
     },
     prevPokemon() {
-        if (typeof this.pokemon === 'string' || this.pokemonID > 1) {
-            //console.log('sono dentro IF type OFF &&');
-            //Reset shiny/spin
-            if (this.shiny || !this.isFronte) {
-                this.shiny = false
-                this.isFronte = true
+        if (!this.errore) {
+            if (typeof this.pokemon === 'string' || this.pokemonID > 1) {
+                //console.log('sono dentro IF type OFF &&');
+                //Reset shiny/spin
+                if (this.shiny || !this.isFronte) {
+                    this.shiny = false
+                    this.isFronte = true
+                }
+                this.pokemonID--
+                this.pokemon = this.pokemonID
+                //console.log(this.pokemon, 'this.pokemon dentro bottone');
+                //console.log(this.pokemonID, 'this.pokemon dentro bottone');
+                this.callApi()
             }
-            this.pokemonID--
-            this.pokemon = this.pokemonID
-            //console.log(this.pokemon, 'this.pokemon dentro bottone');
-            //console.log(this.pokemonID, 'this.pokemon dentro bottone');
-            this.callApi()
         }
     },
     shinyButton() {

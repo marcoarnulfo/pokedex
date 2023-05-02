@@ -218,6 +218,7 @@ export default {
   position: absolute;
   top: 388px;
   left: 418px;
+  font-size: 20px;
 }
 
 .type_test {

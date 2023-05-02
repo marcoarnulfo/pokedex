@@ -14,7 +14,7 @@ export default {
 
 <template>
     <input type="checkbox" id="checkbox"
-        @click="store.playSound('http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3') + store.powerOn()">
+        @click="store.playSound('') + store.powerOn()">
     <label for="checkbox" class="switch">
         <div class="powersign"></div>
     </label>
