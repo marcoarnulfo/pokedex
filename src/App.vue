@@ -3,6 +3,7 @@
 //import axios from 'axios';
 import { store } from './store.js'
 import SearchBar from './components/SearchBar.vue'
+import Power from './components/Power.vue'
 
 
 export default {
@@ -14,6 +15,7 @@ export default {
   },
   components: {
     SearchBar,
+    Power,
   },
   mounted() {
     store.callApi()
@@ -27,14 +29,9 @@ export default {
   <div class="text-center">
     <div class="bg_img">
       <!--Bottone power-->
-      <div class="">
-        <button class="power button-30"
-          @click.prevent="store.playSound('http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3') + store.powerOn()">
-          &#9211;
-        </button>
-      </div>
-      <div class="test">
+      <Power></Power>
 
+      <div class="test">
         <!--pagina off-->
         <div v-if="store.power">
           <!--Text area-->
@@ -240,7 +237,7 @@ export default {
 .bg_img {
   position: relative;
   margin: auto;
-  background-image: url('./assets/newpokez.png');
+  background-image: url('./assets/newpoke_1.png');
   background-repeat: no-repeat;
   background-size: contain;
   height: 1000px;
@@ -356,16 +353,5 @@ export default {
   font-size: 25px;
 }
 
-.power {
-  position: relative;
-  top: 60px;
-  right: 370px;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: rgb(212, 212, 212);
-  color: red;
-  border: none;
-  font-size: 40px;
-}
+
 </style>

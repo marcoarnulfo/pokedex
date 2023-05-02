@@ -10,7 +10,7 @@ export default {
     methods: {
         sendValue() {
             store.pokemon = this.$refs.myInput.value
-            console.log(store.pokemon);
+            //console.log(store.pokemon);
             store.callApi()
             this.$refs.myInput.value = ''
             //Reset shiny/spin
