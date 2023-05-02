@@ -95,17 +95,6 @@ export default {
         gap: 0.4em;
     }
 
-    // .up {
-    //     display: flex;
-    //     flex-direction: row;
-    //     //gap: 0.5em;
-    // }
-
-    // .down {
-    //     display: flex;
-    //     flex-direction: row;
-    //     //gap: 0.3em;
-    // }
 
     .card1 {
         width: 90px;
@@ -122,8 +111,7 @@ export default {
         margin: auto;
         width: 25px;
         fill: #1e3050;
-        //color: blue;
-        //fill: #cc39a4;
+
     }
 
 
