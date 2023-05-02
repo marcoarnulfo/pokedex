@@ -1,10 +1,11 @@
 <script>
 
-//import axios from 'axios';
 import { store } from './store.js'
 import SearchBar from './components/SearchBar.vue'
 import Power from './components/Power.vue'
 import Led from './components/Led.vue'
+import InputLed from './components/InputLed.vue'
+import StatusLed from './components/StatusLed.vue'
 
 
 export default {
@@ -18,7 +19,9 @@ export default {
     SearchBar,
     Power,
     Led,
-  },
+    InputLed,
+    StatusLed
+},
   mounted() {
     store.callApi()
   }
@@ -28,13 +31,18 @@ export default {
 </script>
 
 <template>
-  <div class="text-center">
-    <div class="bg_img">
+  <div  class="text-center bg_pokemon">
+    <div>
+      <img class="logo" src="./assets/pokemonLogo.png" alt="">
+    </div>
+    <div class="pokedex">
       <!--Bottone power-->
       <Power></Power>
       <Led></Led>
+      <InputLed/>
+      <StatusLed/>
 
-      <div class="test">
+      <div class="insidePokedex">
         <!--pagina off-->
         <div v-if="store.power">
           <!--Text area-->
@@ -82,7 +90,13 @@ export default {
           <SearchBar></SearchBar>
           <div class="container_pokemon pt-4"> <!-- Immagine del pokemon-->
             <img v-if="store.errore == false" class="pokemon" :src="store.getImg()" alt="">
-            <img  v-else src="https://picsum.photos/200/200" alt="">
+            <div v-else class="questionMark">
+              
+              <img src="./assets/questionMark.png" alt="">
+              <div>
+                Nessun pokemon trovato!
+              </div>
+            </div>
           </div>
           <div class="buttons d-flex gap-2"> <!--Blocco dei bottoni next & prev pokemons-->
             <button class="button-30" @click="store.prevPokemon()" role="button"><span class="arrow"><i
@@ -144,6 +158,18 @@ export default {
 <style lang="scss" scoped>
 @import "./scss/style.scss";
 
+.logo{
+  height: 150px;
+}
+.bg_pokemon{
+  background-image: url('./assets/bg_pokemon.png');
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
 .text_area {
   position: absolute;
   top: 171px;
@@ -159,7 +185,7 @@ export default {
   display: none;
 }
 
-//ASSEGNARE ALL'IMMAGIN DELLA FEMMINA PER STYLE
+
 #female_img {
   width: 20px;
   height: 26px;
@@ -178,31 +204,20 @@ export default {
   background-color: #e3e3e3;
 }
 
-//male rgb(91, 186, 245)
+
 #male {
   background-color: rgb(91, 186, 245);
-  // box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgb(85, 124, 221) 0 -3px 0 inset;
-
   box-shadow: inset 0px -3px 0px 0px rgba(0, 0, 0, 0.3), inset 0px -3px 0px 0px transparent;
 }
 
 #maleFemale {
   background-image: linear-gradient(to right, palevioletred 50%, rgb(91, 186, 245) 50%);
   box-shadow: inset 0px -3px 0px 0px rgba(0, 0, 0, 0.3), inset 0px -3px 0px 0px transparent;
-
-  //background: $bgMix;
-  //box-shadow: inset 0px -3px 0px linear-gradient(90deg, red 50%, blue 50%);
-  //box-shadow: inset 0px -3px 0px $bgMix ;
-  // box-shadow: inset 0px -3px 0px transparent, inset 0px -3px 0px linear-gradient(to right, red 50%, blue 50%), inset 0px -3px 0px transparent;
-  //box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgb(181, 70, 107) 0 -3px 0 inset;
 }
 
 #female {
   background-color: palevioletred;
-  //background-image: palevioletred;
   box-shadow: inset 0px -4px 0px 0px rgba(0, 0, 0, 0.5), inset 0px -3px 0px 0px transparent;
-  // box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgb(181, 70, 107) 0 -3px 0 inset; // cambiare box shadow 
-
 }
 
 .switch_img {
@@ -241,8 +256,20 @@ export default {
 .pokemon {
   width: 200px;
 }
+.questionMark{
+  height:200px;
+  width: 200px;
+  img{
+    padding-top: 1rem;
+    width: 40%;
+  }
+  div{
+    padding-top: 1rem;
+    font-size: 20px;
+  }
+}
 
-.bg_img {
+.pokedex {
   position: relative;
   margin: auto;
   background-image: url('./assets/newpoke_1.png');
@@ -252,13 +279,13 @@ export default {
   width: 1000px;
 }
 
-.test {
+.insidePokedex {
   position: absolute;
   top: 230px;
   left: 180px;
   width: 100px;
   height: 100px;
-  /* background: red; */
+
 }
 
 #shiny_button {
@@ -274,8 +301,6 @@ export default {
 .shiny_img {
   width: 30px;
   height: 30px;
-  // filter: invert(59%) sepia(12%) saturate(1980%) hue-rotate(290deg) brightness(92%) contrast(83%);
-  //color: yellow;
 }
 
 .shiny_filter {
@@ -286,14 +311,9 @@ export default {
   align-items: center;
   appearance: none;
   background-color: #e3e3e3;
-  //background-color: #f6f5f0;
   border-radius: 4px;
   border-width: 0;
-  // box-shadow: inset 10px 10px 15px -10px #c3c3c3,
-  //           inset -10px -10px 15px -10px #ffffff;
-
   box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #c3c3c3 0 -3px 0 inset;
-
   box-sizing: border-box;
   color: #36395A;
   cursor: pointer;
@@ -317,16 +337,13 @@ export default {
   font-size: 18px;
 }
 
-// creare classe a doc per Male & female
+
 
 .button-30:focus {
   box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
 }
 
-// .button-30:hover {
-//   box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
-//   transform: translateY(-2px);
-// }
+
 
 .button-30:active {
   box-shadow: #D6D6E7 0 3px 7px inset;

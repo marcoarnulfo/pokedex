@@ -61,7 +61,7 @@ export default {
                 <div class="finder__outer">
                     <div class="finder__inner">
                         <div class="finder__icon" ref="icon"></div>
-                        <input ref="myInput" @keydown.enter="sendValue()" class="finder__input" type="text" name="q"
+                        <input ref="myInput" @keypress="store.firstLed()" @keydown.enter="sendValue()" class="finder__input" type="text" name="q"
                             placeholder="Search Pokemon" />
                             <!-- Nascondere SOLO l'input in caso di accensione / spegnimento pokedex-->
                     </div>
@@ -80,21 +80,7 @@ body {
     background-color: #eaeaea;
 }
 
-// .container_custom {
-
-//         //text-align: center;
-//     //     color: #2c3e50;
-//     // width: 100%;
-//     // height: 100%;
-//     // display: flex;
-//     // justify-content: center;
-//     // align-items: center;
-//     // flex-direction: column;
-
-// }
-
 form {
-    //transition: all 0.5s;
     position: absolute;
     top: 171px;
     left: 420px;
@@ -105,15 +91,12 @@ form {
     background-color: #f6f5f0; // colorez
     border-radius: 15px;
     padding: 5px;
-    /* // luminosità
-        box-shadow: 9px 9px 16px rgba(189, 189, 189, 0.6),
-            -9px -9px 16px rgba(255, 255, 255, 0.5);
-            */
+
 }
 
 .finder__outer {
     display: flex;
-    width: 295px; // grandezza laterale
+    width: 295px; 
     padding: 1.4rem 1.5rem;
     border-radius: 10px;
     box-shadow: inset 10px 10px 15px -10px #c3c3c3,
@@ -130,11 +113,11 @@ form {
 .finder__form {
     flex: 1;
     height: calc(100% + 3rem);
-    //height: 50px;
+    
 }
 
 .finder__input {
-    //height: calc(100% + 3rem);
+    
     width: 200px;
     border: none;
     background-color: transparent;

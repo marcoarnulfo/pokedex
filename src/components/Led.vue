@@ -13,7 +13,7 @@ export default {
 </script>
 
 <template>
-    <div class="d-flex gap-1">
+    <div v-if="!store.errore" class="d-flex gap-1">
         <div class="led-box">
             <div class="led-red" :class="store.power == false ? 'red_animation' : ''"></div>
         </div>
@@ -24,9 +24,20 @@ export default {
             <div class="led-blue" :class="store.power == false ? 'blue_animation' : ''"></div>
         </div>
     </div>
+    <div v-else class="d-flex gap-1">
+        <div class="led-box">
+            <div class="led-red" :class="store.power == false ? 'red_animation' : ''"></div>
+        </div>
+        <div class="led-box">
+            <div class="led-red" :class="store.power == false ? 'red_animation' : ''"></div>
+        </div>
+        <div class="led-box">
+            <div class="led-red" :class="store.power == false ? 'red_animation' : ''"></div>
+        </div>
+    </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .led-box {
     height: 30px;
     width: 30px;

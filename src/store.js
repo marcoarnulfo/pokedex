@@ -3,8 +3,7 @@ import { reactive } from 'vue'
 import axios from 'axios'
 
 export const store = reactive({
-    // TODO tre lucette in alto da rendere sempre intermittenti forse.
-    // TODO lucetta in basso farla illuminare un paio di volte quando si fa la ricerca
+    inputCounter: true,
     isFronte: true,
     isMale: false,
     shiny: false,
@@ -46,18 +45,20 @@ export const store = reactive({
         }
     },
     changeGender: function () {
-        if (store.myPokemons.sprites.front_female !== null) {
-            // Inverti il valore di isMale prima di aggiornare frontImg
-            if (!this.isMale) {
-                this.isMale = true
-                this.path = 'male'
-            } else {
-                this.isMale = false
-                this.path = 'female'
-            }
-            // Aggiorna frontImg in base al genere
-            if (this.isMale) {
-                this.frontImg = store.myPokemons.sprites.front_default
+        if (!this.errore) {
+            if (store.myPokemons.sprites.front_female !== null) {
+                // Inverti il valore di isMale prima di aggiornare frontImg
+                if (!this.isMale) {
+                    this.isMale = true
+                    this.path = 'male'
+                } else {
+                    this.isMale = false
+                    this.path = 'female'
+                }
+                // Aggiorna frontImg in base al genere
+                if (this.isMale) {
+                    this.frontImg = store.myPokemons.sprites.front_default
+                }
             }
         }
     },
@@ -68,46 +69,26 @@ export const store = reactive({
         axios.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemon}`)
             .then(response => {
                 this.errore = false
-                //this.isMale = true
-                //console.log(response.data.name); // stampa il nome del pokemon
-                //console.log(response.data.id); // stampa l'id del pokemon
-                //console.log(response.data.types[0].type.name); // accedo al primo tipo. potrebbe essercene anche un secondo
                 this.myPokemons = response.data
                 this.pokemonID = this.myPokemons.id
-                this.pokemon = this.pokemonID // bug bulbasaur fix
-
-                //console.log(this.pokemon_type);
-                //console.log(response.data.height) // stampa l'altezza
-                //console.log(response.data.weight) // stampa il peso
-                //console.log(response.data.sprites.front_default) // immagine del fronte del pokemon NORMALE
-                //console.log(response.data.sprites.back_default) // immaigne del back del pokemon NORMALE
-                //console.log(response.data.sprites.front_shiny) // immagine del fronte del pokemon SHINY
-                //console.log(response.data.sprites.back_shiny) // immaigne del back del pokemon SHINY
-                //console.log(response.data)
-                //console.log(response.data.types);
-                //console.log(this.pokemon, 'this.pokemon');
-                //console.log(this.pokemonID, 'this.pokemonID');
-                //console.log(this.myPokemons.name, 'this.pokemon.name');
-                //console.log(response.data.id);
-                //console.log(this.myPokemons.id);
+                this.pokemon = this.pokemonID 
                 if (store.myPokemons.sprites.front_female !== null) {
                     // se c'è differenza tra generi is male va a false
                     this.isMale = true
                     this.path = 'male'
-                    //console.log(this.isMale, 'è femmina?');
                     this.frontImg = store.myPokemons.sprites.front_default
                 } else { // se non c'è differenza tra generi, is male va a true
                     this.frontImg = store.myPokemons.sprites.front_default
                     this.isMale = true
                     this.path = 'male&female'
-                    //console.log(this.isMale, 'è maschio?');
+                    
                 }
             })
             .catch(error => {
-                console.log(error);
+                //console.log(error);
                 this.myPokemons = []
+                this.path = 'male&female'
                 this.errore = true
-                console.log(this.errore,'catch');
             });
     },
     nextPokemon() {
@@ -138,7 +119,6 @@ export const store = reactive({
     prevPokemon() {
         if (!this.errore) {
             if (typeof this.pokemon === 'string' || this.pokemonID > 1) {
-                //console.log('sono dentro IF type OFF &&');
                 //Reset shiny/spin
                 if (this.shiny || !this.isFronte) {
                     this.shiny = false
@@ -146,8 +126,6 @@ export const store = reactive({
                 }
                 this.pokemonID--
                 this.pokemon = this.pokemonID
-                //console.log(this.pokemon, 'this.pokemon dentro bottone');
-                //console.log(this.pokemonID, 'this.pokemon dentro bottone');
                 this.callApi()
             }
         }
@@ -180,6 +158,23 @@ export const store = reactive({
             this.pokemon = 'bulbasaur'
             this.callApi()
             console.log('if power on');
+        }
+    },
+    firstLed(){
+        if (this.inputCounter) {
+            let firstElement = document.querySelector('.first')
+            firstElement.classList.add('yellow_animation')
+            setTimeout(() => {
+                firstElement.classList.remove('yellow_animation')
+            }, 500)
+            this.inputCounter = false
+        } else {
+            let firstElement = document.querySelector('.second')
+            firstElement.classList.add('blue_animation')
+            setTimeout(() => {
+                firstElement.classList.remove('blue_animation')
+            }, 500)
+            this.inputCounter = true
         }
     }
 })
