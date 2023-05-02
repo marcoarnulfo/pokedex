@@ -149,6 +149,5 @@ export default {
     .card3:hover .github {
         fill: white;
     }
-
-
+    
 </style>

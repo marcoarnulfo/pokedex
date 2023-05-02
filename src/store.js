@@ -131,17 +131,21 @@ export const store = reactive({
         }
     },
     shinyButton() {
-        if (!this.shiny) {
-            this.shiny = true
-        } else {
-            this.shiny = false
+        if (!this.errore) {
+            if (!this.shiny) {
+                this.shiny = true
+            } else {
+                this.shiny = false
+            }
         }
     },
     spinButton() {
-        if (!this.isFronte) {
-            this.isFronte = true
-        } else {
-            this.isFronte = false
+        if (!this.errore) {
+            if (!this.isFronte) {
+                this.isFronte = true
+            } else {
+                this.isFronte = false
+            }
         }
     },
     playSound(sound) {
