@@ -9,7 +9,7 @@ export const store = reactive({
     isMale: false,
     shiny: false,
     power: true,
-    error: false,
+    errore: false,
     path: 'female',
     pokemon: 'bulbasaur', // accetta solo lettere minuscole O numeri
     pokemonID: 1,
@@ -67,7 +67,6 @@ export const store = reactive({
         }
         axios.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemon}`)
             .then(response => {
-                console.log(this.error, 'api');
                 //this.isMale = true
                 //console.log(response.data.name); // stampa il nome del pokemon
                 //console.log(response.data.id); // stampa l'id del pokemon
@@ -106,8 +105,8 @@ export const store = reactive({
             .catch(error => {
                 console.log(error);
                 this.myPokemons = []
-                this.error = true
-                console.log(this.error, 'catch');
+                this.errore = true
+                console.log(this.errore,'catch');
             });
     },
     nextPokemon() {

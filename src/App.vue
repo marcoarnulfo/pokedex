@@ -20,7 +20,7 @@ export default {
     Led,
   },
   mounted() {
-    //store.callApi()
+    store.callApi()
   }
 }
 
@@ -80,8 +80,9 @@ export default {
 
         <div v-else>
           <SearchBar></SearchBar>
-          <div v-if="store.error == false" class="container_pokemon pt-4"> <!-- Immagine del pokemon-->
-            <img  class="pokemon" :src="store.getImg()" alt="">
+          <div class="container_pokemon pt-4"> <!-- Immagine del pokemon-->
+            <img v-if="store.errore == false" class="pokemon" :src="store.getImg()" alt="">
+            <img  v-else src="https://picsum.photos/200/200" alt="">
           </div>
           <div class="buttons d-flex gap-2"> <!--Blocco dei bottoni next & prev pokemons-->
             <button class="button-30" @click="store.prevPokemon()" role="button"><span class="arrow"><i
@@ -91,13 +92,13 @@ export default {
           </div>
           <div class="types d-flex gap-3"> <!--Blocco pokemon's types-->
             <div class="type_test  rounded"> <!-- Blocco bianco-->
-              <div v-if="store.error == true" :id="store.myPokemons.types[0].type.name"
+              <div v-if="store.errore == false" :id="store.myPokemons.types[0].type.name"
                 class="type_test d-flex justify-content-center align-items-center rounded"> <!-- Primo tipo-->
                 {{ store.myPokemons.types[0].type.name }}
               </div>
             </div>
             <div class="type_test rounded"> <!-- Blocco bianco-->
-              <div v-if="store.error == true">
+              <div v-if="store.errore == false">
                 <div v-if="store.myPokemons.types.length > 1" :id="store.myPokemons.types[1].type.name" class="type_test
                   d-flex justify-content-center align-items-center rounded"> <!-- Secondo tipo-->
                 {{ store.myPokemons.types[1].type.name }}
@@ -126,13 +127,13 @@ export default {
           </div>
           <!--Statistiche Pokemon-->
           <div id="info">
-            <div>Nome: {{ store.myPokemons.name }}</div>
-            <div>Altezza: {{ store.myPokemons.height / 10 }} m</div>
-            <div>Peso: {{ store.myPokemons.weight / 10 }} kg</div>
+            <div>Nome: <span v-if="store.errore == false">{{ store.myPokemons.name }}</span> <span v-else >?</span></div>
+            <div>Altezza: <span v-if="store.errore == false">{{ store.myPokemons.height / 10 }} m</span> <span v-else >?</span></div>
+            <div>Peso: <span v-if="store.errore == false">{{ store.myPokemons.weight / 10 }} kg</span> <span v-else >?</span></div>
           </div>
           <!--Numero Pokemon-->
           <div class="info_id">
-            <div>N° {{ store.myPokemons.id }}</div>
+            <div>N° <span v-if="store.errore== false" >{{ store.myPokemons.id }}</span>  <span v-else >?</span></div>
           </div>
         </div>
       </div>
